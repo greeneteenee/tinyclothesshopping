@@ -21,13 +21,13 @@
 <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/">C#</a></li>
 <li><a href="https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.0">ASP.NET Core 3.1</a></li>
 <li><a href="https://docs.microsoft.com/en-nz/aspnet/core/mvc/overview?view=aspnetcore-3.0">MVC</a></li>
-<li><a href="%5Bhttps://jquery.com/%5D(https://jquery.com/)">jQuery</a></li>
-<li><a href="%5Bhttps://getbootstrap.com/%5D(https://getbootstrap.com/)">Bootstrap 4</a></li>
+<li><a href="https://jquery.com/%5D(https://jquery.com/)">jQuery</a></li>
+<li><a href="https://getbootstrap.com/%5D(https://getbootstrap.com/)">Bootstrap 4</a></li>
 </ul>
 <h2 id="resources">Resources</h2>
 <ol>
-<li><a href="%5Bhttps://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started%5D(https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started)%5D">Getting started with ASP.NET MVC 5</a></li>
-<li><a href="%5Bhttps://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli%5D(https://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli)">Getting Started with EF Core</a></li>
-<li><a href="%5Bhttps://www.w3schools.com/bootstrap4/%5D(https://www.w3schools.com/bootstrap4/)">Bootstrap 4  Tutorial</a></li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started%5D(https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started)%5D">Getting started with ASP.NET MVC 5</a></li>
+<li><a href="https://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli%5D(https://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli)">Getting Started with EF Core</a></li>
+<li><a href="https://www.w3schools.com/bootstrap4/%5D(https://www.w3schools.com/bootstrap4/)">Bootstrap 4  Tutorial</a></li>
 </ol>
 
