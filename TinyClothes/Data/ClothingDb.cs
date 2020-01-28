@@ -21,10 +21,10 @@ namespace TinyClothes.Data
         /// </summary>
         /// <param name="c"></param>
         /// <returns>Returns the object with the Id populated</returns>
-        public static Clothing Add(Clothing c, StoreContext context) //best to pass context as a parameter instead of creating a new context inside method
+        public static async Task<Clothing> Add(Clothing c, StoreContext context) //best to pass context as a parameter instead of creating a new context inside method
         {
-            context.Add(c); //prepares INSERT query
-            context.SaveChanges(); //execute INSERT query,must call save changes so changes goes into database
+            await context.AddAsync(c); //prepares INSERT query
+            await context.SaveChangesAsync(); //execute INSERT query,must call save changes so changes goes into database
 
             return c;
         }
