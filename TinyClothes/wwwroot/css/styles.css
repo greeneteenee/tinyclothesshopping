@@ -1,0 +1,11 @@
+﻿body {
+}
+
+.carousel-caption{
+    top:200px;
+    font-size: 50px;
+}
+
+.carousel-caption h5 {
+    font-size: 1em;
+}
