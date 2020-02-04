@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +12,41 @@ namespace TinyClothes.Data
     /// </summary>
     public static class ClothingDb
     {
-        public static List<Clothing> GetAllClothing()
+       
+
+        /// <summary>
+        /// Returns a specific page of clothing items with specific number of items sorted by ItemId in ascending order
+        /// </summary>        /// 
+        const int PageOffset = 1; //must offset by one to get page 1
+        public async static Task<List<Clothing>> GetClothingByPage(StoreContext context, int pageNum, int pageSize)
         {
-            throw new NotImplementedException();
+                       
+
+            List<Clothing> clothes = await context.Clothing
+                .OrderBy(c => c.ItemId)
+                .Skip((pageNum - PageOffset)*pageSize)
+                .Take(pageSize)                
+                .ToListAsync(); //LINQ method syntax
+
+
+
+            //List<Clothing> clothes2 = await (from c in context.Clothing orderby c.ItemId ascending select c) //LINQ method syntax (keeping for notes)
+            //.Skip((pageNum - PageOffset) * pageSize)
+            //.Take(pageSize)
+            //.ToListAsync(); 
+
+            return clothes;
+
+        }
+
+        /// <summary>
+        /// Returns the total number of clothing items
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async static Task<int> GetNumClothing(StoreContext context)
+        {
+            return await context.Clothing.CountAsync();
         }
 
         /// <summary>
