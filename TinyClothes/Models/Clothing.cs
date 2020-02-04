@@ -19,13 +19,21 @@ namespace TinyClothes.Models
         /// <summary>
         /// Title of clothing item
         /// </summary>
+        [Required]
+        [StringLength(35)]
+        [RegularExpression("^([A-Z-z0-9])+$")]
         public string Title { get; set; }
 
         /// <summary>
         /// Description of the clothing
         /// </summary>
+        [StringLength(800)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// The size of clothing
+        /// </summary>
+        [Required(ErrorMessage ="Size is required")]       
         public string Size { get; set; }
 
         /// <summary>
@@ -33,11 +41,13 @@ namespace TinyClothes.Models
         /// </summary>
         public string Type { get; set; }
 
+        [Required]
         public string Color { get; set; }
 
         /// <summary>
         /// Retail price of item
         /// </summary>
+        [Range(0.0, 9999.99)]
         public double Price { get; set; }
 
     }

@@ -1,4 +1,5 @@
 ﻿body {
+    
 }
 
 .carousel-caption{
@@ -8,4 +9,12 @@
 
 .carousel-caption h5 {
     font-size: 1em;
+}
+
+.carousel, .item, .active {
+    max-height: 100vh;
+}
+
+.carousel-inner {
+    max-height: 100vh;
 }
