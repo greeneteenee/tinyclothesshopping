@@ -8,7 +8,7 @@
 <p>A sample e-commerce shopping website built with C# and <a href="http://ASP.NET">ASP.NET</a> Core and the MVC architecture.</p>
 <p>The website will have a multiple pages (i.e. index, products, checkout and invoice). The site users are able to a register, add to cart and checkout items from the store.  Admin users are able to create, update or delete products from product listing.</p>
 <h2 id="screenshots">Screenshots</h2>
-<p><img src="https://i.imgur.com/Ky9kKmH.png" alt="Screenshot placeholder"><br>
+<p><img src="https://imgur.com/BcGyjlM" alt="Screenshot"><br>
 <img src="https://i.imgur.com/7bHjIJj.png" alt="Screenshot placeholder"></p>
 <h2 id="built-with-prerequisites">Built With (Prerequisites)</h2>
 <ul>
