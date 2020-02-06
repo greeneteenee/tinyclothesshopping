@@ -3,54 +3,59 @@
     ViewData["Title"] = "Add new Clothing product";
 }
 
-<h1>Add new clothing</h1>
 
-<form method="post">
+<div class="container-fluid">
 
-    <div class="form-row">
-        <div class="col-md-10">
-            <label asp-for="Title"></label>
-            <input class="form-control" asp-for="Title" />
-            <span asp-validation-for="Title"></span>
-            <br />
-        </div>
-        <div class="col-md-2">
-            <label asp-for="Price"></label>
-            <input class="form-control" asp-for="Price" />
-            <span asp-validation-for="Price"></span>
-            <br />
-        </div>
-    </div>
+    <h1>Add new clothing</h1>
 
-    <label asp-for="Description"></label>
-    <input class="form-control" asp-for="Description" />
-    <span asp-validation-for="Description"></span>
-    <br />
+    <form method="post">
 
-    <div class="form-row">
-        <div class="col">
-            <label asp-for="Type"></label>
-            <input class="form-control" asp-for="Type" />
-            <span asp-validation-for="Type"></span>
-            <br />
-        </div>
-        <div class="col">
-            <label asp-for="Color"></label>
-            <input class="form-control" asp-for="Color" />
-            <span asp-validation-for="Color"></span>
-            <br />
-        </div>
-        <div class="col">
-            <label asp-for="Size"></label>
-            <input class="form-control" asp-for="Size" />
-            <span asp-validation-for="Size"></span>
-            <br />
+        <div class="form-row">
+            <div class="col-md-10">
+                <label asp-for="Title"></label>
+                <input class="form-control" asp-for="Title" />
+                <span asp-validation-for="Title"></span>
+                <br />
+            </div>
+            <div class="col-md-2">
+                <label asp-for="Price"></label>
+                <input class="form-control" asp-for="Price" />
+                <span asp-validation-for="Price"></span>
+                <br />
+            </div>
         </div>
 
+        <label asp-for="Description"></label>
+        <input class="form-control" asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+        <br />
 
-    </div>
-         
-    <input type="submit" class="btn btn-lg btn-dark" value="Add clothing" />
+        <div class="form-row">
+            <div class="col">
+                <label asp-for="Type"></label>
+                <input class="form-control" asp-for="Type" />
+                <span asp-validation-for="Type"></span>
+                <br />
+            </div>
+            <div class="col">
+                <label asp-for="Color"></label>
+                <input class="form-control" asp-for="Color" />
+                <span asp-validation-for="Color"></span>
+                <br />
+            </div>
+            <div class="col">
+                <label asp-for="Size"></label>
+                <input class="form-control" asp-for="Size" />
+                <span asp-validation-for="Size"></span>
+                <br />
+            </div>
 
 
-</form>
+        </div>
+
+        <input type="submit" class="btn btn-lg btn-dark" value="Add clothing" />
+
+
+    </form>
+
+</div>

@@ -20,8 +20,7 @@ namespace TinyClothes.Models
         /// Title of clothing item
         /// </summary>
         [Required]
-        [StringLength(35)]
-        [RegularExpression("^([A-Z-z0-9])+$")]
+        [StringLength(35)]        
         public string Title { get; set; }
 
         /// <summary>
@@ -48,6 +47,7 @@ namespace TinyClothes.Models
         /// Retail price of item
         /// </summary>
         [Range(0.0, 9999.99)]
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
 
     }
