@@ -1,5 +1,5 @@
 ---
-
+![.NET Core](https://github.com/greeneteenee/tinyclothesshopping/workflows/.NET%20Core/badge.svg)
 
 ---
 
