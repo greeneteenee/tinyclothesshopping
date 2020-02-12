@@ -4,7 +4,7 @@
     ViewData["Title"] = "List Clothing Inventory";
 }
 
-    <div class="container-fluid">
+    <div class="container">
 
         <h1>Clothing Inventory</h1>
 
@@ -46,32 +46,33 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ItemId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Size)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Color)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ItemId" class="badge badge-secondary">Edit</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ItemId" class="badge badge-secondary">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ItemId" class="badge badge-danger">Delete</a>
+                    </td>     
+                </tr>
                 }
             </tbody>
         </table>

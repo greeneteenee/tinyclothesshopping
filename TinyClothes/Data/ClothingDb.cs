@@ -82,5 +82,15 @@ namespace TinyClothes.Data
             await context.SaveChangesAsync();
             return c;
         }
+                
+        public static async Task Delete(Clothing c, StoreContext context)        
+        {                    
+                await context.AddAsync(c);
+                context.Entry(c).State = EntityState.Deleted;
+                await context.SaveChangesAsync();
+            
+        }
     }
+
 }
+
