@@ -106,8 +106,9 @@ namespace TinyClothes.Controllers
         [ActionName("Delete")] //workaround because we can't have two methods with the same parameters with the same name
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await ClothingDb.Delete(id, _context);
-            TempData["Message"] = "Clothing deleted successfully";
+            Clothing c = await ClothingDb.GetClothingById(id, _context);
+            await ClothingDb.Delete(c, _context);
+            TempData["Message"] = $"{c.Title} deleted successfully";
             return RedirectToAction(nameof(ShowAll)); //turns "ShowAll" into a string
         }
 

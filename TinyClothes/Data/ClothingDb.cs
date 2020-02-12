@@ -88,12 +88,20 @@ namespace TinyClothes.Data
             Clothing c = await GetClothingById(id, context);
 
             //if the product was found, delete it
-            if(c!= null)
+            if (c != null)
             {
+                await Delete(c, context); //chains the two delete method together so we don't have redundant code
+            }
+        }
+        
+        public static async Task Delete(Clothing c, StoreContext context)        
+        {                    
                 await context.AddAsync(c);
                 context.Entry(c).State = EntityState.Deleted;
                 await context.SaveChangesAsync();
-            }
+            
         }
     }
+
 }
+
