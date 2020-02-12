@@ -62,7 +62,7 @@ namespace TinyClothes.Controllers
             return View(c); //else return the same view with validation error messages
 
         }
-
+        //when user first goes to webpage
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -77,6 +77,7 @@ namespace TinyClothes.Controllers
             return View(c);
         }
 
+        //when user is interacting with database
         [HttpPost]
         public async Task<IActionResult> Edit(Clothing c)
         {
@@ -87,7 +88,27 @@ namespace TinyClothes.Controllers
                 return View(c);
             }
             return View(c);
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Clothing c = await ClothingDb.GetClothingById(id, _context);
+            if (c == null) //if clothing is not in the database
+            {
+                //returns a HTTP 404 - Not found error
+                return NotFound();
+            }
+            return View(c);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")] //workaround because we can't have two methods with the same parameters with the same name
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await ClothingDb.Delete(id, _context);
+            TempData["Message"] = "Clothing deleted successfully";
+            return RedirectToAction(nameof(ShowAll)); //turns "ShowAll" into a string
         }
 
 
