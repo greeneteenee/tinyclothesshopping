@@ -21,5 +21,7 @@ namespace TinyClothes.Data
         /// </summary>
         public DbSet<Clothing> Clothing { get; set; } //Property names can be the same as class names, however, developers usually make the property name plural
 
+        public DbSet<Account> Accounts { get; set; }
+
     }
 }
