@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TinyClothes.Data;
 using TinyClothes.Models;
@@ -29,10 +30,10 @@ namespace TinyClothes.Controllers
         {
             if (ModelState.IsValid)
             {
-                //check username is not taken
+                // Check username is not taken
                 if (!await AccountDb.IsUsernameTaken(reg.Username, _context))
                 {
-                    //maps register object to account object
+                    // Maps register object to account object
                     Account acc = new Account()
                     {
                         Email = reg.Email,
@@ -41,8 +42,14 @@ namespace TinyClothes.Controllers
                         Username = reg.Username
                     };
 
-                    //add account to database
+                    // Add account to database
                     await AccountDb.Register(_context, acc);
+
+                    // Create user session
+                    HttpContext.Session.SetInt32("Id", acc.AccountId);
+                    HttpContext.Session.SetString("Username", acc.Username);
+                 ;
+
                     return RedirectToAction("Index", "Home");
                 }
                 else //display error
@@ -55,5 +62,25 @@ namespace TinyClothes.Controllers
 
             return View(reg);
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel login)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isMatch = await AccountDb.DoesUserAMatch(login, _context);
+
+                // TODO Create session
+                return RedirectToAction("Index", "Home");
+            }
+            return View(login);
+        }
+
     }
 }
