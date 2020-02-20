@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,10 +36,26 @@ namespace TinyClothes
 
             services.AddControllersWithViews();
 
-            services.AddDbContext<StoreContext>(options => options.UseSqlServer(connection)); //lambda syntax passes in an anonymous function as a parameter
 
-            //same as above
-            //services.AddDbContext<StoreContext>(ConfigDbContext);
+            //Set up database context
+            services.AddDbContext<StoreContext>(options => options.UseSqlServer(connection)); //lambda syntax passes in an anonymous function as a parameter
+                
+
+            services.AddHttpContextAccessor();
+
+            //same as above easier helper method
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddDistributedMemoryCache();
+
+            //add and configure session
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".TinyClothes.session";
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.IsEssential = true; //session cookie get created even if user doesn't accept cookie policy
+            });
+              
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +77,8 @@ namespace TinyClothes
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession(); //allows session data to be accessed
 
             app.UseEndpoints(endpoints =>
             {
