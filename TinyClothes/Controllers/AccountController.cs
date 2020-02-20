@@ -12,10 +12,12 @@ namespace TinyClothes.Controllers
     public class AccountController : Controller
     {
         private readonly StoreContext _context; //c# convention to use underscore to set field instead of using this keyword down below, "readonly" means only the constructor can modify this variable
+        private readonly IHttpContextAccessor _http;
 
-        public AccountController(StoreContext context) //constructor gives controller access to database
+        public AccountController(StoreContext context, IHttpContextAccessor http) //constructor gives controller access to database
         {
             _context = context;
+            _http = http;
         }
 
 
@@ -46,9 +48,8 @@ namespace TinyClothes.Controllers
                     await AccountDb.Register(_context, acc);
 
                     // Create user session
-                    HttpContext.Session.SetInt32("Id", acc.AccountId);
-                    HttpContext.Session.SetString("Username", acc.Username);
-                 ;
+                    SessionHelper.CreateUserSession(acc.AccountId, acc.Username, _http);
+                 
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -74,9 +75,11 @@ namespace TinyClothes.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isMatch = await AccountDb.DoesUserAMatch(login, _context);
+                Account acc = await AccountDb.DoesUserAMatch(login, _context);
 
-                // TODO Create session
+                // Create user session
+                SessionHelper.CreateUserSession(acc.AccountId, acc.Username, _http);
+
                 return RedirectToAction("Index", "Home");
             }
             return View(login);
