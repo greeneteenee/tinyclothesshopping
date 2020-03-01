@@ -17,7 +17,10 @@ namespace TinyClothes.Models
 
         public static void Add(Clothing c, IHttpContextAccessor http)
         {
-            string data = JsonConvert.SerializeObject(c);  //newtonsoft.com
+            List<Clothing> clothes = GetAllClothes(http);
+            clothes.Add(c);
+            
+            string data = JsonConvert.SerializeObject(clothes);  //newtonsoft.com
 
             CookieOptions options = new CookieOptions()
             {
@@ -31,19 +34,24 @@ namespace TinyClothes.Models
 
         public static int GetCount(IHttpContextAccessor http)
         {
-            string data = http.HttpContext.Request.Cookies[CartCookie];
-
-            if (string.IsNullOrWhiteSpace(data))
-            {
-                return 0;
-            }
-            return 1;
+            List<Clothing> allClothes = GetAllClothes(http);
+            return allClothes.Count;
 
         }
 
+        /// <summary>
+        /// Returns all clothing currently stored in the users cookie. If no items are present an empty list is returned.
+        /// </summary>
+        /// <param name="http"></param>
+        /// <returns></returns>
         public static List<Clothing> GetAllClothes(IHttpContextAccessor http)
         {
-            throw new NotImplementedException();
+            string data = http.HttpContext.Request.Cookies[CartCookie];
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                return new List<Clothing>();
+            }
+            return JsonConvert.DeserializeObject<List<Clothing>>(data);
         }
 
     }
