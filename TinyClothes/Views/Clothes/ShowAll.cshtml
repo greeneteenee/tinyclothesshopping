@@ -1,51 +1,53 @@
-﻿@model IEnumerable<Clothing>
+﻿@using Microsoft.AspNetCore.Http;
+@model IEnumerable<Clothing>
+@inject IHttpContextAccessor http
 
 @{
     ViewData["Title"] = "List Clothing Inventory";
 }
 
-    <div class="container">
+<div class="container">
 
-        <h1>Clothing Inventory</h1>
+    <h1>Clothing Inventory</h1>
 
-        @if (TempData["Message"] != null)
-        {
-            <div class="alert alert-success" role="alert">@TempData["Message"]</div>
-        }
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success" role="alert">@TempData["Message"]</div>
+    }
 
-        <p>
-            <a asp-action="Add" asp-controller="Clothes">Create New</a>
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ItemId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Size)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Color)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+    <p>
+        <a asp-action="Add" asp-controller="Clothes">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Size)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Color)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ItemId)
@@ -68,29 +70,38 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
+
+                    @{ 
+                        //Get current url path "/Clothes/ShowAll"
+                        string previousUrl = http.HttpContext.Request.Path;
+                        //Add query string "?page=2"
+                        previousUrl += http.HttpContext.Request.QueryString.Value;
+                    }
+
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ItemId" class="badge badge-secondary">Edit</a> |
                         <a asp-action="Delete" asp-route-id="@item.ItemId" class="badge badge-danger">Delete</a>
-                    </td>     
+                        <a asp-action="Add" asp-route-id="@item.ItemId" asp-route-prevUrl="@previousUrl" asp-controller="Cart" class="badge badge-primary">Add to Cart</a>
+                    </td>
                 </tr>
-                }
-            </tbody>
-        </table>
-
-        <ul class="pagination">
-            @*Print page numbers*@
-            @for (int i = 1; i <= (int)ViewData["MaxPage"]; i++)
-            {
-                @if (i != (int)ViewData["CurrentPage"])
-                {
-                    <li class="page-item"><a class="page-link" asp-action="ShowAll" asp-route-page="@i">@i</a></li>
-                }
-                else
-                {
-                    <li class="page-item active"><a class="page-link" href="#">@i</a> </li>
-//highlight current page
-                }
             }
-        </ul>
+        </tbody>
+    </table>
 
-    </div>
+    <ul class="pagination">
+        @*Print page numbers*@
+        @for (int i = 1; i <= (int)ViewData["MaxPage"]; i++)
+        {
+            @if (i != (int)ViewData["CurrentPage"])
+            {
+                <li class="page-item"><a class="page-link" asp-action="ShowAll" asp-route-page="@i">@i</a></li>
+            }
+            else
+            {
+                <li class="page-item active"><a class="page-link" href="#">@i</a> </li>
+                //highlight current page
+            }
+        }
+    </ul>
+
+</div>
