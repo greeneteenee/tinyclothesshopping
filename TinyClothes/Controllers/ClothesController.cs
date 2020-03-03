@@ -112,6 +112,11 @@ namespace TinyClothes.Controllers
             return RedirectToAction(nameof(ShowAll)); //turns "ShowAll" into a string
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Search(SearchCriteria search)
+        {
+            return View();
+        }
 
     }
 }
