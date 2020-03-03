@@ -17,9 +17,7 @@
     <div class="container-fluid bg-dark header-top d-none d-md-block">
         <div class="container">
             <div class="row text-light pt-2 pb-2">
-                <div class="col-md-3"></div>
-                <div class="col-md-3"></div>
-
+                <div class="col-md-6"></div>
                 @if (!SessionHelper.IsUserLoggedIn(sessionInfo)) //user is not logged in
                 {
                     <div class="col-md-2"><a class="nav-link text-light" asp-controller="Account" asp-action="Register">Register <i class="fa fa-address-book fa-2x" aria-hidden="true"></i></a></div>
@@ -27,6 +25,7 @@
                 }
                 else //user is logged in
                 {
+                    <div class="col-md-2"></div>
                     <div class="col-md-2"><a class="nav-link text-light" asp-controller="Account" asp-action="Logout">Logout <i class="fa fa-user fa-2x" aria-hidden="true"></i></a></div>
                 }
                 <div class="col-md-2"><a class="nav-link text-light" asp-controller="Home" asp-action="Index">@CartHelper.GetCount(sessionInfo) <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a></div>
@@ -53,6 +52,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="">Privacy</a>
                         </li>
                     </ul>
                 
