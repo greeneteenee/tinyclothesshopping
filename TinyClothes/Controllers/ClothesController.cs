@@ -115,7 +115,25 @@ namespace TinyClothes.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(SearchCriteria search)
         {
-            return View();
+            //IQueryable prepares the query(SELECT * FROM Clothes), but does not send to database
+            IQueryable<Clothing> allClothes = from c in _context.Clothing select c;
+
+            //WHERE Price > MinPrice
+            if (search.MinPrice.HasValue)
+            {
+                allClothes = from c in allClothes
+                                where c.Price >= search.MinPrice
+                                select c;
+            }
+            
+
+            //WHERE Price < MaxPrice
+            allClothes = from c in allClothes
+                            where c.Price <= search.MaxPrice
+                            select c;
+              
+            search.Results = allClothes.ToList();
+            return View(search);
         }
 
     }
