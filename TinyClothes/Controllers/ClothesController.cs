@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TinyClothes.Data;
 using TinyClothes.Models;
 
@@ -115,6 +116,16 @@ namespace TinyClothes.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(SearchCriteria search)
         {
+            if (ModelState.IsValid)
+            {
+                await BuildSearchQuery(search);
+                return View(search);
+            }
+            return View();
+        }
+
+        private async Task<SearchCriteria> BuildSearchQuery(SearchCriteria search)
+        {
             //IQueryable prepares the query(SELECT * FROM Clothes), but does not send to database
             IQueryable<Clothing> allClothes = from c in _context.Clothing select c;
 
@@ -122,8 +133,8 @@ namespace TinyClothes.Controllers
             if (search.MinPrice.HasValue)
             {
                 allClothes = from c in allClothes
-                                where c.Price >= search.MinPrice
-                                select c;
+                             where c.Price >= search.MinPrice
+                             select c;
             }
 
 
@@ -135,7 +146,7 @@ namespace TinyClothes.Controllers
                              select c;
             }
 
-            if(!string.IsNullOrWhiteSpace(search.Size))
+            if (!string.IsNullOrWhiteSpace(search.Size))
             {
                 allClothes = from c in allClothes
                              where c.Size == search.Size
@@ -155,11 +166,10 @@ namespace TinyClothes.Controllers
                              where c.Title.Contains(search.Title)
                              select c;
             }
-            
 
-            search.Results = allClothes.ToList();
-            return View(search);
+
+            search.Results = await allClothes.ToListAsync();
+            return search;
         }
-
     }
 }
