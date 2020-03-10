@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Clothing>
+@inject IHttpContextAccessor http
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @if (SessionHelper.IsUserLoggedIn(http))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.ItemId" class="badge badge-secondary">Edit</a> <text>|</text>
+                    <a asp-action="Delete" asp-route-id="@item.ItemId" class="badge badge-danger">Delete</a>
+
+                }
+                @{
+                    //Get current url path
+                    string previousUrl = http.HttpContext.Request.Path;
+                    //Add query string "?page=2"
+                    previousUrl += http.HttpContext.Request.QueryString.Value;
+                }
+                <a asp-action="Add" asp-route-id="@item.ItemId" asp-route-prevUrl="@previousUrl" asp-controller="Cart" class="badge badge-primary">Add to Cart</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

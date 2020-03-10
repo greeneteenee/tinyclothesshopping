@@ -42,14 +42,7 @@
         </div>
         @if (Model != null && Model.Results.Count > 0)
         {
-        <div>
-            <ul>
-            @foreach (Clothing c in Model.Results)
-            {
-                <li>@c.Title : @c.Price</li>
-            }
-            </ul>
-        </div>
+            @await Html.PartialAsync("_DisplayClothes", Model.Results)
         }
         else
         {
