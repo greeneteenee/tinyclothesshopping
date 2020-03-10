@@ -18,7 +18,7 @@ namespace TinyClothes.Data
         /// Returns a specific page of clothing items with specific number of items sorted by ItemId in ascending order
         /// </summary>        /// 
         const int PageOffset = 1; //must offset by one to get page 1
-        public async static Task<List<Clothing>> GetClothingByPage(StoreContext context, int pageNum, int pageSize)
+        public static async Task<List<Clothing>> GetClothingByPage(StoreContext context, int pageNum, int pageSize)
         {
                        
 
@@ -44,7 +44,7 @@ namespace TinyClothes.Data
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async static Task<int> GetNumClothing(StoreContext context)
+        public static async Task<int> GetNumClothing(StoreContext context)
         {
             return await context.Clothing.CountAsync();
         }
@@ -90,6 +90,55 @@ namespace TinyClothes.Data
                 await context.SaveChangesAsync();
             
         }
+
+        public static async Task<SearchCriteria> BuildSearchQuery(SearchCriteria search, StoreContext context)
+        {
+            //IQueryable prepares the query(SELECT * FROM Clothes), but does not send to database
+            IQueryable<Clothing> allClothes = from c in context.Clothing select c;
+
+            //WHERE Price > MinPrice
+            if (search.MinPrice.HasValue)
+            {
+                allClothes = from c in allClothes
+                             where c.Price >= search.MinPrice
+                             select c;
+            }
+
+
+            //WHERE Price < MaxPrice
+            if (search.MinPrice.HasValue)
+            {
+                allClothes = from c in allClothes
+                             where c.Price <= search.MaxPrice
+                             select c;
+            }
+
+            if (!string.IsNullOrWhiteSpace(search.Size))
+            {
+                allClothes = from c in allClothes
+                             where c.Size == search.Size
+                             select c;
+            }
+
+            if (!string.IsNullOrWhiteSpace(search.Type))
+            {
+                allClothes = from c in allClothes
+                             where c.Type == search.Type
+                             select c;
+            }
+
+            if (!string.IsNullOrWhiteSpace(search.Title))
+            {
+                allClothes = from c in allClothes
+                             where c.Title.Contains(search.Title)
+                             select c;
+            }
+
+
+            search.Results = await allClothes.ToListAsync();
+            return search;
+        }
+
     }
 
 }
