@@ -3,14 +3,15 @@
     ViewData["Title"] = "Error!!1";
 }
 
-<h1>Uh-oh</h1>
-
 @if(ViewData["ErrorMsg"] != null)
 {
-    <h2>@ViewData["ErrorMsg"]</h2>
+<h2>Uh oh - @ViewData["ErrorMsg"]</h2>
+<img class="img-fluid" src="~/images/404page.png" alt="Hurt dog">
+
 }
 else
 {
-    <p>Something bad happened. Please try again later. </p>
+<p>Something bad happened. Please try again later. </p>
+<img class="img-fluid" src="~/images/404page.png" alt="Hurt dog">
 }
 
