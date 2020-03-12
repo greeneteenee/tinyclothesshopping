@@ -20,7 +20,7 @@
     <p>
         <a asp-action="Add" asp-controller="Clothes">Create New</a>
     </p>
-    
+
     @await Html.PartialAsync("_DisplayClothes", Model)
 
     <ul class="pagination">
@@ -40,3 +40,24 @@
     </ul>
 
 </div>
+
+@section Scripts {
+    <script>
+        console.log("Add to cart script executing");
+        $("*[data-cart-button").click(
+            function (event) {
+                event.preventDefault();  /*  stop <a> from navigating  */  
+
+                var currBtn = this; /*The add to Cart button that was clicked*/
+                console.log(currBtn);
+
+                var itemId = $(currBtn).attr("data-cart-itemid"); /*use jquery to get attribute of button that was clicked*/
+
+                $.post("/Cart/AddJS", { id : itemId }).done(function () {
+                    alert("Cart item added");
+                });
+                
+
+        });
+    </script>
+}
