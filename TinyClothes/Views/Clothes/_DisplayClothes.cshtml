@@ -65,9 +65,10 @@
                     //Add query string "?page=2"
                     previousUrl += http.HttpContext.Request.QueryString.Value;
                 }
-                <a asp-action="Add" asp-route-id="@item.ItemId" asp-route-prevUrl="@previousUrl" asp-controller="Cart" class="badge badge-primary">Add to Cart</a>
+                <a asp-action="Add" asp-route-id="@item.ItemId" asp-route-prevUrl="@previousUrl" asp-controller="Cart" data-cart-button data-cart-itemid="@item.ItemId" class="badge badge-primary">Add to Cart</a> @*data-cart-button & data-cart-item are custom attributes *@
             </td>
         </tr>
 }
     </tbody>
 </table>
+
